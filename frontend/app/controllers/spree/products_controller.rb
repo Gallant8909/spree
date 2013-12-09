@@ -7,11 +7,8 @@ module Spree
     respond_to :html
 
     def index
-      @searcher = 800
-      #@products = @searcher.retrieve_products
-      post_body = String.new("<XMLDataStreamRequest><Ver>3.0</Ver><Auth><AcctID>20975</AcctID><LoginID>dotcomweavers</LoginID><Password>dotcom123</Password></Auth><Search><Category>#{@searcher}</Category></Search></XMLDataStreamRequest>")
-      CategoryData = RestClient.post "https://www.promoplace.com/ws/ws.dll/XMLDataStream", post_body
-      @products = Crack::XML.parse(CategoryData)
+      @searcher = build_searcher(params)
+      @products = @searcher.retrieve_products
     end
 
     def show

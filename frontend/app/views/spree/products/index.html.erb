@@ -12,11 +12,26 @@
 <% if params[:keywords] %>
 
   <div data-hook="search_results">
-    <% if @products.empty? %>
-      <h6 class="search-results-title"><%= Spree.t(:no_products_found) %></h6>
-    <% else %>
-      <%= render :partial => 'spree/shared/products', :locals => { :products => @products, :taxon => @taxon } %>
-    <% end %>
+    <%  
+    post_body = String.new("<XMLDataStreamRequest><Ver>3.0</Ver><Auth><AcctID>20975</AcctID><LoginID>dotcomweavers</LoginID><Password>dotcom123</Password></Auth><Search><Category>800</Category></Search></XMLDataStreamRequest>")
+	searchdata = RestClient.post "https://www.promoplace.com/ws/ws.dll/XMLDataStream", post_body
+	searchproducts = Crack::XML.parse(searchdata)
+    %>
+     <table class="results-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+			<img src="ThumbPicLink" />
+       <td width="25%"><p>
+			<a href="#">Link</a>
+		</p>
+           <table width="100%" border="0" cellspacing="2" cellpadding="2" align="center">
+           	<a href="#">Link</a>
+              <tr>
+                <td><
+                </tr>
+                
+                <tr>
+                	<td style="font-size:11px; color:#CC0000;">as low as $<"Prc"></td>
+              </tr>
+          </table></td>
   </div>
 
 <% else %>
